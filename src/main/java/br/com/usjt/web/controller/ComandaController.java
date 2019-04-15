@@ -20,7 +20,6 @@ public class ComandaController {
 	@Inject
 	Result result;
 	
-	//teste push
 	@Path("/createComanda")
 	public void createComanda(int idGarcom, int mesa) {
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
