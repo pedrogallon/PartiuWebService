@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//PT-BR"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="br.com.usjt.web.service.ComandaMapper">
+	<insert id="createComanda">
+		INSERT
+			INTO comanda
+			  (
+			    id_garcom,
+			    codigo_comanda,
+			    mesa,
+			    status,
+			    dta_entrada
+			  ) VALUES(
+			    #{comanda.garcom.id},
+			    #{comanda.codigo},
+			    #{comanda.mesa},
+			    #{comanda.status},
+			    sysdate()
+			  )
+	</insert>
+	
+	<select id="getComandas" resultType="br.com.usjt.web.model.Comanda">
+		SELECT
+			id_garcom,
+			codigo_comanda,
+			mesa,
+			status,
+			dta_entrada,
+			dta_saida
+		FROM comanda
+	</select>
+	
+	<select id="checkComanda" resultType="br.com.usjt.web.model.Comanda">
+		SELECT
+			codigo_comanda as codigo,
+			status
+		FROM comanda
+		WHERE codigo_comanda = #{codigo}
+		AND status = 'A'
+	</select>
+	<select id="getComandasByStatusAndId" resultType="br.com.usjt.web.model.Comanda">
+		SELECT
+			id_garcom as garcom,
+			codigo_comanda as codigo,
+			mesa as mesa,
+			status as status,
+			dta_entrada as dtaEntrada,
+			dta_saida as dtaSaida
+		FROM comanda
+		WHERE status = #{status}
+		AND id_garcom = #{idGarcom}
+	</select>
+	
+	<select id="getComandaByCodigo" resultType="br.com.usjt.web.model.Comanda">
+		SELECT
+			id_garcom,
+			codigo_comanda,
+			mesa,
+			status,
+			dta_entrada,
+			dta_saida
+		FROM comanda
+		WHERE codigo_comanda = #{codigo}
+	</select>
+	
+</mapper>

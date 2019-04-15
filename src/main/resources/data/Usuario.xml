@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//PT-BR"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="br.com.usjt.web.service.UsuarioMapper">
+
+	<select id="getUsuarios" resultType="br.com.usjt.web.model.Usuario">
+		select 
+			id,
+			tipo, 
+			cpf, 
+			nome, 
+			date_format(dta_nascimento, '%d/%m/%Y'), 
+			email, 
+			ddd, 
+			telefone, 
+			genero, 
+			senha,
+			endereco 
+		  from usuario
+	</select>
+
+	<select id="getUsuarioByEmail" resultType="br.com.usjt.web.model.Usuario">
+		select 
+			id,
+			tipo, 
+			cpf, 
+			nome, 
+			date_format(dta_nascimento, '%d/%m/%Y'), 
+			email, 
+			ddd, 
+			telefone, 
+			genero, 
+			senha,
+			endereco 
+		  from usuario
+		  where 
+		  	email = #{email}
+	</select>
+	
+	<select id="getUsuarioById" resultType="br.com.usjt.web.model.Usuario">
+		select 
+			id,
+			tipo, 
+			cpf, 
+			nome, 
+			date_format(dta_nascimento, '%d/%m/%Y'), 
+			email, 
+			ddd, 
+			telefone, 
+			genero, 
+			senha,
+			endereco 
+		  from usuario
+		  where 
+		  	id = #{id}
+	</select>
+	
+	<select id="getUsuarioOnLogin" resultType="br.com.usjt.web.model.Usuario">
+		select 
+			id,
+			tipo, 
+			cpf, 
+			nome, 
+			date_format(dta_nascimento, '%d/%m/%Y'), 
+			email, 
+			ddd, 
+			telefone, 
+			genero, 
+			senha,
+			endereco 
+		  from usuario
+		  where 
+		  	email = #{email}
+		  AND
+		  	senha = #{senha}
+	</select>
+	
+	<!-- createUsuario() referente ao segundo semestre -->
+	<insert id="createUsuario">
+		INSERT
+			INTO usuario
+			  (
+			  	tipo,
+			    cpf,
+			    nome,
+			    dta_nascimento,
+			    email,
+			    ddd,
+			    telefone,
+			    genero,
+			    senha,
+			    endereco
+			  ) VALUES(
+			  	#{usuario.tipo}
+			    #{usuario.cpf},
+			    upper(#{usuario.nome}),
+			    str_to_date(#{usuario.dta_nascimento}, '%d/%m/%Y'),
+			    lower(#{usuario.email}),
+			    #{usuario.ddd},
+			    #{usuario.telefone},
+			    #{usuario.genero},
+			    #{usuario.senha}
+				#{usuario.endereco.id}
+			  )
+				
+	</insert>
+	
+	<insert id="updateCliente">
+		UPDATE usuario set 
+				tipo=#{usuario.tipo},
+			    cpf=#{usuario.tipo},
+			    nome=upper(#{usuario.nome}),
+			    dta_nascimento=str_to_date(#{usuario.dta_nascimento}, '%d/%m/%Y'),
+			    email=lower(#{usuario.email}),
+			    ddd=#{usuario.ddd},
+			    telefone=#{usuario.telefone},
+			    genero=#{usuario.genero},
+			    senha=#{usuario.senha},
+			    endereco=#{usuario.endereco.id}
+			    where id = #{usuario.id}
+	</insert>
+</mapper>

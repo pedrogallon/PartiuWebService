@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//PT-BR"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="br.com.usjt.web.service.RestauranteMapper">
+	<insert id="createRestaurante">
+		INSERT
+			INTO restaurante
+			  (
+				cnpj,
+				codigo_cardapio,
+			    razao_social,
+			    nom_fantasia,
+			    id_endereco,
+			    qtd_mesas,
+			    logotipo,
+			    descricao,
+			    status
+			  ) VALUES(
+			    #{restaurante.cnpj},
+			    #{restaurante.codigoComanda},
+			    #{restaurante.razaoSocial},
+			    #{restaurante.nomeFantasia},
+			    (select max(id) from endereco),
+			    #{restaurante.qtdMesas},
+			    #{restaurante.logo},
+			    #{restaurante.descricao},
+			    #{restaurante.status}
+			  )
+	</insert>
+	
+	<select id="getRestauranteByIdGarcom" resultType="br.com.usjt.web.model.Restaurante">
+		SELECT r.cnpj as cnpj, 
+			r.qtd_mesas as qtdMesas, 
+			r.codigo_cardapio as codigoComanda, 
+			r.razao_social as razaoSocial, 
+			r.nom_fantasia as nomeFantasia, 
+			r.status as status,
+			r.logotipo as logo, 
+			r.descricao as descricao, 
+			r.id_endereco as endereco
+		FROM restaurante r
+		INNER JOIN funcionario_restaurante fr
+		ON r.cnpj = fr.cnpj_restaurante
+		WHERE fr.id_funcionario = #{idGarcom}
+	</select>
+</mapper>
