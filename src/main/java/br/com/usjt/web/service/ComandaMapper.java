@@ -30,5 +30,4 @@ public interface ComandaMapper {
 	
 	List<Comanda> checkComanda(
 			@Param("codigo") String codigo);
-
 }

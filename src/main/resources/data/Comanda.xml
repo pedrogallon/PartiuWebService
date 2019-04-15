@@ -40,6 +40,7 @@
 		WHERE codigo_comanda = #{codigo}
 		AND status = 'A'
 	</select>
+	
 	<select id="getComandasByStatusAndId" resultType="br.com.usjt.web.model.Comanda">
 		SELECT
 			id_garcom as garcom,

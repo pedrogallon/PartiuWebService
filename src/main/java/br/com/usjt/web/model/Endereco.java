@@ -97,6 +97,4 @@ public class Endereco {
 				+ complemento + ", bairro=" + bairro + ", cidade=" + cidade + ", uf=" + uf + ", cep=" + cep + "]";
 	}
 	
-	
-
 }
