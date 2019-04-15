@@ -58,4 +58,16 @@ public class ComandaController {
 			result.use(Results.json()).withoutRoot().from("ERRO: "+e.getMessage()).serialize();
 		}
 	}
+	
+
+	@Path("/checkComanda")
+	public void checkComanda(String codigo) {
+		ComandaDAO comandaDAO = new ComandaDAO();
+		try{
+			List<Comanda> comandaCheck = comandaDAO.checkComanda(codigo);
+				result.use(Results.json()).withoutRoot().from(comandaCheck).serialize();							
+		} catch(Exception e) {
+			result.use(Results.json()).withoutRoot().from("ERRO: "+e.getMessage()).serialize();
+		}
+	}
 }
